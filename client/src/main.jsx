@@ -6,7 +6,7 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import App from "./App";
+import App from "./app/App";
 
 const router = createBrowserRouter([
   {
