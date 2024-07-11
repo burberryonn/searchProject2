@@ -1,16 +1,14 @@
 const userRouter = require("express").Router();
 const { User } = require("../../db/models");
-const cookieParser = require("cookie-parser");
+// const cookieParser = require("cookie-parser");
 
-userRouter.use(cookieParser());
+// userRouter.use(cookieParser());
 
 userRouter.get("/", async (req, res) => {
   try {
-    const user = await User.findAll({
-      orderBy: [["id", "ASC"]],
-    });
-    res.cookie("test", "testSecond").json(user);
-    console.log(req.cookies);
+    const user = await User.findAll();
+    // cookie("test", "testSecond")
+    res.json(user);
   } catch ({ message }) {
     res.json(`ошибка: ${message}`);
   }
@@ -25,8 +23,6 @@ userRouter.post("/", async (req, res) => {
     res.status(400).send(error);
   }
 });
-
-
 
 userRouter.delete("/:id", async (req, res) => {
   const { id } = req.params;

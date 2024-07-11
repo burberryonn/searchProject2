@@ -1,20 +1,21 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class RequestHistory extends Model {
     static associate(models) {
-      this.hasMany(models.User, { foreignKey: 'userId' });
+      this.belongsTo(models.User, { foreignKey: "userId" });
     }
   }
-  RequestHistory.init({
-    userId: DataTypes.INTEGER,
-    goodRequest: DataTypes.STRING,
-    badRequest: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'RequestHistory',
-  });
+  RequestHistory.init(
+    {
+      userId: DataTypes.INTEGER,
+      goodRequest: DataTypes.STRING,
+      badRequest: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "RequestHistory",
+    }
+  );
   return RequestHistory;
 };
