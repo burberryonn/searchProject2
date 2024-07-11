@@ -5,7 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class RequestHistory extends Model {
     static associate(models) {
-      this.belongsTo(models.User, { foreignKey: 'userId' });
+      this.hasMany(models.User, { foreignKey: 'userId' });
     }
   }
   RequestHistory.init({
