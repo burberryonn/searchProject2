@@ -7,6 +7,8 @@ import {
   Link,
 } from "react-router-dom";
 import App from "./app/App";
+import News from "./page/news/News";
+import Profile from "./page/profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -15,11 +17,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "news",
-        element: {},
+        element: <News></News>,
       },
       {
-        path: "history",
-        element: {},
+        path: "profile",
+        element: <Profile></Profile>,
       },
     ],
   },
