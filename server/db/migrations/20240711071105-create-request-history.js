@@ -15,6 +15,8 @@ module.exports = {
           model: 'Users',
           key: 'id',
         },
+        allowNull: false,
+        onDelete:"CASCADE",
       },
       goodRequest: {
         type: Sequelize.STRING
