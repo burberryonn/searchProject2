@@ -7,6 +7,7 @@ import {
   Link,
 } from "react-router-dom";
 import App from "./app/App";
+import Authorization from "./authorization/Authorization";
 import News from "./page/news/News";
 import Profile from "./page/profile/Profile";
 import Registration from "./registration/Registration";
@@ -25,9 +26,13 @@ const router = createBrowserRouter([
         element: <Profile></Profile>,
       },
       {
-        path:"registration",
-        element: <Registration></Registration>
-      }
+        path: "authorization",
+        element: <Authorization></Authorization>,
+      },
+      {
+        path: "registration",
+        element: <Registration></Registration>,
+      },
     ],
   },
 ]);

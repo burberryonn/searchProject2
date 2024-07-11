@@ -11,6 +11,9 @@ function Navbar() {
         <Link to="/profile" className="nav-link">
           PROFILE
         </Link>
+        <Link to="/authorization" className="nav-link">
+          AUTHORIZATION
+        </Link>
         <Link to="/registration" className="nav-link">
           REGISTRATION
         </Link>
