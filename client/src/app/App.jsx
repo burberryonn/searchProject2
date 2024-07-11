@@ -14,6 +14,12 @@ function App() {
     setLoading(true);
     setError(null);
     try {
+      let query = positiveInput;
+
+      if (negativeInput.trim() !== "") {
+        query += `-${negativeInput}`;
+      }
+
       const { data } = await axios.get(
         `https://api.worldnewsapi.com/search-news`,
         {
@@ -21,11 +27,11 @@ function App() {
             "api-key": "3e47991767c74356bfb0fa27354f8e94",
             "source-countries": "ru",
             language: "ru",
-            text: positiveInput,
-            negative_text: negativeInput,
+            text: query,
           },
         }
       );
+
       setNews(data.news);
     } catch (error) {
       setError("Failed to fetch news. Please try again.");
