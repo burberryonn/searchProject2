@@ -11,6 +11,7 @@
     "undoSeed": "npx sequelize db:seed:undo:all",
     "createDB": "npx sequelize db:create",
     "dropDB": "npx sequelize db:drop",
+    "dev": "nodemon app.js",
     "dbr": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate:undo:all && npx sequelize db:migrate && npx sequelize db:seed:undo:all && npx sequelize db:seed:all"
   },
   "keywords": [],
