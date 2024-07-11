@@ -9,32 +9,56 @@ function App() {
   const [negativeInput, setNegativeInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [inputErrors, setInputErrors] = useState({});
+
+  const validateInputs = () => {
+    const errors = {};
+    if (!positiveInput.trim()) {
+      errors.positiveInput = 'Любимые темы не могут быть пустыми';
+    }
+    if (negativeInput.trim() && !positiveInput.trim()) {
+      errors.negativeInput = 'Нелюбимые темы могут быть заполнены только после заполнения любимых тем';
+    }
+    if (negativeInput.trim() && negativeInput.trim().length < 3) {
+      errors.negativeInput = 'Нелюбимые темы должны содержать минимум 3 символа';
+    }
+    return errors;
+  };
 
   const allNews = async () => {
+    const errors = validateInputs();
+    if (Object.keys(errors).length > 0) {
+      setInputErrors(errors);
+      return;
+    }
+
     setLoading(true);
     setError(null);
+    setInputErrors({});
+
     try {
       let query = positiveInput;
-
-      if (negativeInput.trim() !== "") {
-        query += `-${negativeInput}`;
-      }
-
-      const { data } = await axios.get(
-        `https://api.worldnewsapi.com/search-news`,
-        {
-          params: {
-            "api-key": "3e47991767c74356bfb0fa27354f8e94",
-            "source-countries": "ru",
-            language: "ru",
-            text: query,
-          },
+      if (positiveInput.trim() !== "") {
+        if (negativeInput.trim() !== "") {
+          query += `-${negativeInput}`;
         }
-      );
 
-      setNews(data.news);
+        const { data } = await axios.get(
+          `https://api.worldnewsapi.com/search-news`,
+          {
+            params: {
+              "api-key": "3e47991767c74356bfb0fa27354f8e94",
+              "source-countries": "ru",
+              language: "ru",
+              text: query,
+            },
+          }
+        );
+
+        setNews(data.news);
+      }
     } catch (error) {
-      setError("Failed to fetch news. Please try again.");
+      setError("Ошибка сервера, новостей по данному запросу не найдено");
     } finally {
       setLoading(false);
     }
@@ -58,6 +82,7 @@ function App() {
             onChange={(e) => setPositiveInput(e.target.value)}
             placeholder="Введите ключевые слова"
           />
+          {inputErrors.positiveInput && <p className="error">{inputErrors.positiveInput}</p>}
         </div>
         <div>
           <label htmlFor="negative">Нелюбимые темы новостей:</label>
@@ -68,6 +93,7 @@ function App() {
             onChange={(e) => setNegativeInput(e.target.value)}
             placeholder="Введите ключевые слова"
           />
+          {inputErrors.negativeInput && <p className="error">{inputErrors.negativeInput}</p>}
         </div>
         <button type="submit">Поиск новостей</button>
       </form>
