@@ -26,8 +26,8 @@ function Registration() {
           }}
         ></input>
         <input
-          type="email"
-          placeholder="електроная почта"
+          type="text"
+          placeholder="электронная почта"
           onChange={(event) => {
             setForm((prev) => ({ ...prev, email: event.target.value }));
           }}
@@ -39,7 +39,7 @@ function Registration() {
             setForm((prev) => ({ ...prev, password: event.target.value }));
           }}
         ></input>
-        <button type="submit">зарегестрироваться</button>
+        <button type="submit">зарегистрироваться</button>
       </form>
     </div>
   );

@@ -9,6 +9,7 @@ import {
 import App from "./app/App";
 import News from "./page/news/News";
 import Profile from "./page/profile/Profile";
+import Registration from "./registration/Registration";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
         path: "profile",
         element: <Profile></Profile>,
       },
+      {
+        path:"registration",
+        element: <Registration></Registration>
+      }
     ],
   },
 ]);
