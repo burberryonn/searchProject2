@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Loader from "../../ui/Loader";
-import NewsCard from './NewsCard';
+import NewsCard from "./NewsCard";
 import axios from "axios";
 function News() {
   const [news, setNews] = useState([]);
   const [positiveInput, setPositiveInput] = useState("");
   const [negativeInput, setNegativeInput] = useState("");
+  const [language, setLanguage] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [inputErrors, setInputErrors] = useState({});
@@ -49,8 +50,8 @@ function News() {
           {
             params: {
               "api-key": "3e47991767c74356bfb0fa27354f8e94",
-              "source-countries": "ru",
-              language: "ru",
+              "source-countries": language,
+              language: language,
               text: query,
             },
           }
@@ -70,6 +71,8 @@ function News() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          setPositiveInput('')
+          setNegativeInput('')
           allNews();
         }}
       >
@@ -99,15 +102,24 @@ function News() {
             <p className="error">{inputErrors.negativeInput}</p>
           )}
         </div>
+        <select name="" id="">
+          <option value="" onChange={() => setLanguage("en")}>
+            EN
+          </option>
+          <option value="" onChange={() => setLanguage("ru")}>
+            RU
+          </option>
+        </select>
         <button className="search-button" type="submit">
           Поиск новостей
         </button>
       </form>
       {loading && <Loader />}
       {error && <p className="error">{error}</p>}
+
       <div className="news-container">
         {news.map((news) => (
-          <NewsCard key={news.id}news={news} ></NewsCard>
+          <NewsCard key={news.id} news={news}></NewsCard>
         ))}
       </div>
     </div>
