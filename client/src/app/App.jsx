@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import "./App.css";
 import Loader from "../ui/Loader";
+import Registration from "../registration/Registration";
 
 function App() {
   const [news, setNews] = useState([]);
@@ -114,6 +115,7 @@ function App() {
           </div>
         ))}
       </div>
+      <Registration></Registration>
     </div>
   );
 }
