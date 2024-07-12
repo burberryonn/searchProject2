@@ -9,7 +9,7 @@ tokensRoute.get("/refresh", verifyRefreshToken, async (req, res) => {
   });
   res
     .cookie("refreshToken", refreshToken, cookiesConfig)
-    .json({ accessToken, user: res.locals.user });
+    .json({ user: res.locals.user, accessToken });
 });
 
 module.exports = tokensRoute;

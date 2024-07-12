@@ -10,8 +10,6 @@ module.exports = {
           userId:1,
           goodRequest:"hi",
           badRequest:"bye",
-          createdAt: new Date(),
-          updatedAt: new Date(),
         },
       ],
       {}

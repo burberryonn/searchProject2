@@ -49,7 +49,7 @@ function News() {
           `https://api.worldnewsapi.com/search-news`,
           {
             params: {
-              "api-key": "3e47991767c74356bfb0fa27354f8e94",
+              "api-key": "69ca0d740e78487b8fa7651621bb2907",
               "source-countries": language,
               language: language,
               text: query,
@@ -71,8 +71,8 @@ function News() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          setPositiveInput('')
-          setNegativeInput('')
+          setPositiveInput("");
+          setNegativeInput("");
           allNews();
         }}
       >
@@ -103,11 +103,11 @@ function News() {
           )}
         </div>
         <select name="" id="">
-          <option value="" onChange={() => setLanguage("en")}>
-            EN
-          </option>
           <option value="" onChange={() => setLanguage("ru")}>
             RU
+          </option>
+          <option value="" onChange={() => setLanguage("en")}>
+            EN
           </option>
         </select>
         <button className="search-button" type="submit">
