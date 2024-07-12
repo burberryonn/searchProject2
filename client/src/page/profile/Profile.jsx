@@ -1,53 +1,65 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "../../context/userContext";
 import axios from "axios";
+import "./Profile.css";
+
 function Profile() {
   const { user } = useUser();
-  const [table, useTable] = useState([]);
+  const [table, setTable] = useState([]);
 
   const historyTable = async (id) => {
-    if (id){
+    if (id) {
       const field = await axios.get(`/api/requestHistory/onlyUser/${id}`);
-      useTable(field.data);
+      setTable(field.data);
     }
-  
   };
 
- 
   const deleteRequest = async (id) => {
     const field = await axios.delete(`/api/requestHistory/${id}`);
     if (field.data.message === "success") {
-      console.log(id, table);
-      useTable((prev) => prev.filter((el) => el.id !== id));
+      setTable((prev) => prev.filter((el) => el.id !== id));
     }
   };
 
   useEffect(() => {
     historyTable(user?.id);
   }, [user]);
+
   return (
     <>
-      <div>
-        <h1>{user?.name}</h1>
-        <h1>{user?.email}</h1>
-      </div>
-      <div>
-        {table.map((el) => {
-          return (
-            <div key={el.id}>
-              <div>
-                {el.goodRequest} {el.badRequest}
-              </div>
-              <button
-                onClick={() => {
-                  deleteRequest(el.id);
-                }}
-              >
-                Delete{" "}
-              </button>
-            </div>
-          );
-        })}
+      <div className="profile-container">
+        <div className="profile-header">
+          <h1>Ваша истори мистер {user?.name}</h1>
+        </div>
+        <div className="profile-table-container">
+          <table className="profile-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Good Request</th>
+                <th>Bad Request</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {table.map((el) => (
+                <tr key={el.id}>
+                  <td>{el.id}</td>
+                  <td>{el.goodRequest}</td>
+                  <td>{el.badRequest}</td>
+                  <td>
+                    <button
+                      className="delete-button"
+                      onClick={() => deleteRequest(el.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );
