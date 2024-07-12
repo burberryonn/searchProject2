@@ -1,5 +1,5 @@
-import React from 'react';
-import '../app/App.css'
+import React from "react";
+import "../app/App.css";
 
 function Footer() {
   return (
@@ -7,15 +7,31 @@ function Footer() {
       <div className="footer-content">
         <div className="footer-section about">
           <h2>О нас</h2>
-          <p>Мы предоставляем свежие новости и актуальные события со всего мира.</p>
+          <p>
+            Мы предоставляем свежие новости и актуальные события со всего мира.
+          </p>
         </div>
         <div className="footer-section links">
-          <h2>Полезные ссылки</h2>
+          <h2>Полезные ссылки / наши партнеры</h2>
           <ul>
-            <li><a href="/">Главная</a></li>
-            <li><a href="#about">О нас</a></li>
-            <li><a href="#services">Сервисы</a></li>
-            <li><a href="#contact">Контакты</a></li>
+            <li>
+              <a href="https://ria.ru">RIA.RU</a>
+            </li>
+            <li>
+              <a
+                href="https://lenta.ru
+
+"
+              >
+                LENTA.RU
+              </a>
+            </li>
+            <li>
+              <a href="https://yandex.ru/news">YANDEX.RU</a>
+            </li>
+            <li>
+              <a href="https://www.rbc.ru/short_news">RBC.RU</a>
+            </li>
           </ul>
         </div>
         <div className="footer-section contact">
@@ -25,7 +41,7 @@ function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        &copy; 2024 Все права защищены.
+        &copy; 2024 Все права защищены(наверно).
       </div>
     </footer>
   );

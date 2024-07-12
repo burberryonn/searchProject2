@@ -16,7 +16,7 @@ function Navbar() {
     if (data.message === "success") {
       setAccessToken(undefined);
       setUser(undefined);
-      navigate("/");
+      navigate("/authorization");
     }
   };
 
@@ -42,7 +42,7 @@ function Navbar() {
                   NEWS
                 </Link>
                 <Link to="/profile" className="nav-link">
-                  PROFILE
+                  HISTORY
                 </Link>
                 <Link onClick={onHandleLogOut}className="nav-link">LOGOUT</Link>
               </>
