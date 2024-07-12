@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Loader from "../../ui/Loader";
 import NewsCard from "./NewsCard";
 import axios from "axios";
+import { useUser } from "../../context/userContext";
 function News() {
   const [news, setNews] = useState([]);
   const [positiveInput, setPositiveInput] = useState("");
@@ -10,6 +11,14 @@ function News() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [inputErrors, setInputErrors] = useState({});
+  const {user}= useUser()
+
+  const sendTitle = async()=>{
+
+    const request = await axios.post('/api/requestHistory', {userId: user.id, goodRequest:positiveInput, badRequest:negativeInput})
+
+
+  }
 
   const validateInputs = () => {
     const errors = {};
@@ -74,6 +83,7 @@ function News() {
           setPositiveInput("");
           setNegativeInput("");
           allNews();
+          sendTitle();
         }}
       >
         <div>

@@ -6,7 +6,7 @@ const tokensRoute = require("./api/tokens.routes")
 
 indexRouter.use("/users", userRouter);
 indexRouter.use("/auth", authRouter);
-indexRouter.use("/RequestHistory", requestHistoryRouter);
+indexRouter.use("/requestHistory", requestHistoryRouter);
 indexRouter.use("/tokens", tokensRoute);
 
 module.exports = indexRouter;
