@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Loader from "../../ui/Loader";
 import NewsCard from "./NewsCard";
 import axios from "axios";
+
 import { useUser } from "../../context/userContext";
 function News() {
   const [news, setNews] = useState([]);
@@ -68,6 +69,7 @@ function News() {
 
         setNews(data.news);
       }
+      const {data} = await axiosInstance('/')
     } catch (error) {
       setError("Ошибка сервера, новостей по данному запросу не найдено");
     } finally {

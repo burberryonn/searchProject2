@@ -63,7 +63,11 @@ authRouter.post("/registration", async (req, res) => {
       password: hashPassword,
     });
     if (newUser) {
-      res.status(201).json({ newUser });
+      const user = newUser.get();
+    delete user.password;
+      const { accessToken, refreshToken } = generateTokens({ user });
+      res.status(201).cookie("refreshToken", refreshToken, cookiesConfig)
+      .json({ accessToken, user });
       return;
     } else {
       res.status(400).json({ error, message });

@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useUser } from "../context/userContext";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../services/axiosInstance";
 
 function Registration() {
   const navigate = useNavigate()
@@ -10,8 +11,8 @@ function Registration() {
   const {user, setUser} = useUser()
   const createNewUser = async (event) => {
     event.preventDefault();
-    const {data} = await axios.post("./api/auth/registration", form);
-    setUser(data.user)
+    const data= await axiosInstance.post("/auth/registration", form);
+    setUser(data.data.user)
     navigate('/profile')
     console.log(data)
   };
