@@ -5,13 +5,13 @@ import Loader from "../ui/Loader";
 import Registration from "../registration/Registration";
 import Navbar from "../component/Navbar";
 import { useUser } from "../context/userContext";
-import { useNavigate } from "react-router-dom";
-import axiosInstance, { setAccessToken } from '../../services/axiosInstance';
+import { Outlet, useNavigate } from "react-router-dom";
+import axiosInstance, { setAccessToken } from "../../services/axiosInstance";
+import Footer from "../component/Footer";
 
 function App() {
   const navigate = useNavigate();
   const { user, setUser } = useUser();
-  const [loading, setLoading] = useState(true);
 
   const checkUser = async () => {
     try {
@@ -20,24 +20,20 @@ function App() {
       setAccessToken(data.accessToken);
     } catch (error) {
       console.error("Ошибка при обновлении токена:", error);
-      navigate("/"); // Перенаправление на страницу логина
-    } finally {
-      setLoading(false);
     }
   };
 
   useEffect(() => {
     checkUser();
-  }, []);
-
-  if (loading) {
-    return <Loader />;
-  }
+  }, [setUser]);
 
   return (
     <div className="App">
       <Navbar />
-      {/* Другие компоненты */}
+      <div className="content">
+        <Outlet />
+      </div>
+      <Footer />
     </div>
   );
 }

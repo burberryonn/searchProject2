@@ -7,7 +7,6 @@ const { User } = require("../../db/models");
 userRouter.get("/", async (req, res) => {
   try {
     const user = await User.findAll();
-    // cookie("test", "testSecond")
     res.json(user);
   } catch ({ message }) {
     res.json(`ошибка: ${message}`);

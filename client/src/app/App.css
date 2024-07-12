@@ -1,17 +1,31 @@
-/* App.css */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
 
 .App {
-  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
-  background-color: #f4f4f4;
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 h1 {
   text-align: center;
   color: #333;
+  margin-top: 20px;
+  font-size: 2.5em;
 }
 
 form {
@@ -21,6 +35,8 @@ form {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   max-width: 600px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group {
@@ -102,8 +118,121 @@ input {
   text-decoration: underline;
 }
 
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loader {
+  width: 40px;
+  aspect-ratio: 1;
+  position: relative;
+}
+
+.loader:before,
+.loader:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: -8px 0 0 -8px;
+  width: 16px;
+  aspect-ratio: 1;
+  background: #3FB8AF;
+  animation: l2-1 2s infinite, l2-2 1s infinite;
+}
+
+.loader:after {
+  background: #FF3D7F;
+  animation-delay: -1s, 0s;
+}
+
+@keyframes l2-1 {
+  0% { top: 0; left: 0; }
+  25% { top: 100%; left: 0; }
+  50% { top: 100%; left: 100%; }
+  75% { top: 0; left: 100%; }
+  100% { top: 0; left: 0; }
+}
+
+@keyframes l2-2 {
+  40%, 50% { transform: rotate(0.25turn) scale(0.5); }
+  100% { transform: rotate(0.5turn) scale(1); }
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-section {
+  flex: 1;
+  margin: 10px;
+  min-width: 200px;
+}
+
+.footer-section h2 {
+  margin-top: 0;
+  font-size: 1.5em;
+  color: #fff;
+}
+
+.footer-section p, .footer-section ul {
+  color: #ccc;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin: 5px 0;
+}
+
+.footer-section ul li a {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  background-color: #222;
+  color: #ccc;
+  padding: 10px;
+  font-size: 0.9em;
+}
+
 @media (max-width: 768px) {
   .news-container {
     grid-template-columns: 1fr;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-section {
+    margin: 20px 0;
   }
 }
