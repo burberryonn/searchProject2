@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import "./App.css";
 import Loader from "../ui/Loader";
-import { Link, Outlet } from "react-router-dom";
+import Registration from "../registration/Registration";
 import Navbar from "../component/Navbar";
 
 function App() {
