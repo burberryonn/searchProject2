@@ -2,11 +2,12 @@ const authRouter = require("express").Router();
 const { User } = require("../../db/models");
 const bcrypt = require("bcrypt");
 const cookiesConfig = require("../../config/cookiesConfig");
+const generateTokens = require("../../utils/generateTokens");
 
 authRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  console.log(req.body);
+  console.log(11, req.body);
 
   if (!email || !password) {
     res.status(400).json({ message: "Не все поля" });
@@ -17,13 +18,13 @@ authRouter.post("/login", async (req, res) => {
     return;
   }
   try {
-    const user = await User.findOne({
+    const targetUser = await User.findOne({
       where: {
         email,
       },
     });
 
-    console.log(111, targetUser);
+    console.log(555, targetUser);
 
     const IsValidPassword = targetUser.password === password;
     console.log(222, IsValidPassword);
@@ -33,18 +34,15 @@ authRouter.post("/login", async (req, res) => {
         .json({ error, message: "Не правильный пароль или логин" });
       return;
     }
-    // const user = targetUser.get();
-    // console.log(444, user);
-    delete user.dataValues.password;
-
-    console.log(555, targetUser);
+    const user = targetUser.get();
+    delete user.password;
+    console.log(333, user);
 
     const { accessToken, refreshToken } = generateTokens({ user });
-    console.log(6666, accessToken, refreshToken);
-    res
-      .status(200)
-      .cookie("refreshToken", refreshToken, cookiesConfig)
-      .json({ accessToken, user });
+
+    res.cookie("refreshToken", refreshToken, cookiesConfig);
+
+    res.status(200).json({ user, accessToken });
   } catch (error) {
     res.status(500).json({ error, message: "Нет пользователя" });
   }
