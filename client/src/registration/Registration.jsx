@@ -1,13 +1,19 @@
 import axios from "axios";
 import React from "react";
 import { useState } from "react";
+import { useUser } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
 
 function Registration() {
+  const navigate = useNavigate()
   const [form, setForm] = useState({ name: "", email: "", password: "" });
-
+  const {user, setUser} = useUser()
   const createNewUser = async (event) => {
     event.preventDefault();
-    const send = await axios.post("./api/users", form);
+    const {data} = await axios.post("./api/auth/registration", form);
+    setUser(data.user)
+    navigate('/profile')
+    console.log(data)
   };
 
   return (

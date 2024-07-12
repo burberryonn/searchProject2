@@ -2,6 +2,7 @@ const requestHistoryRouter = require("express").Router();
 const { RequestHistory } = require("../../db/models");
 const cookieParser = require("cookie-parser");
 
+
 requestHistoryRouter.use(cookieParser());
 
 requestHistoryRouter.get("/", async (req, res) => {

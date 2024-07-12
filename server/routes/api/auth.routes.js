@@ -7,14 +7,8 @@ const generateTokens = require("../../utils/generateTokens");
 authRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  console.log(11, req.body);
-
-  if (!email || !password) {
-    res.status(400).json({ message: "Не все поля" });
-    return;
-  }
-  if (email.trim() === "" || password.trim() === "") {
-    res.status(400).json({ message: "Поля не пустые" });
+  if (!email || email.trim() === "" || !password || password.trim() === "") {
+    res.status(403).json({ message: "Не все поля заполнены" });
     return;
   }
   try {
@@ -24,11 +18,8 @@ authRouter.post("/login", async (req, res) => {
       },
     });
 
-    console.log(555, targetUser);
-
-    const IsValidPassword = targetUser.password === password;
-    console.log(222, IsValidPassword);
-    if (!IsValidPassword) {
+    const isValidPassword = await bcrypt.compare(password, targetUser.password);
+    if (!isValidPassword) {
       res
         .status(401)
         .json({ error, message: "Не правильный пароль или логин" });
@@ -36,16 +27,53 @@ authRouter.post("/login", async (req, res) => {
     }
     const user = targetUser.get();
     delete user.password;
-    console.log(333, user);
 
     const { accessToken, refreshToken } = generateTokens({ user });
 
-    res.cookie("refreshToken", refreshToken, cookiesConfig);
-
-    res.status(200).json({ user, accessToken });
+    res
+      .cookie("refreshToken", refreshToken, cookiesConfig)
+      .json({ accessToken, user });
   } catch (error) {
     res.status(500).json({ error, message: "Нет пользователя" });
   }
+});
+
+authRouter.post("/registration", async (req, res) => {
+  const { name, email, password } = req.body;
+  if (
+    !email ||
+    email.trim() === "" ||
+    !password ||
+    password.trim() === "" ||
+    !name ||
+    name.trim() === "" ||
+    !email.includes("@")
+  ) {
+    res.status(400).json({ message: "Не все поля" });
+    return;
+  }
+  try {
+    const hashPassword = await bcrypt.hash(password, 10);
+    const newUser = await User.create({
+      name: name.trim(),
+      email: email.trim(),
+      password: hashPassword,
+    });
+    if (newUser) {
+      res.status(201).json({ newUser });
+      return;
+    } else {
+      res.status(400).json({ error, message });
+      return;
+    }
+  } catch (error) {
+    res.status(500).json({ error, message: "Ошибка сервера" });
+  }
+});
+
+authRouter.get("/logout", async (req, res) => {
+  res.locals.user = undefined;
+  res.status(200).clearCookie("refreshToken").json({ message: "success" });
 });
 
 module.exports = authRouter;

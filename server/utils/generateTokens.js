@@ -1,5 +1,3 @@
-
-
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const jwtConfig = require('../config/jwtConfig');

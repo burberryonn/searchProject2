@@ -9,7 +9,7 @@ import "./Authorization.css";
 
 function Authorization() {
   const [authForm, setAuthForm] = useState({ email: "", password: "" });
-  const { user, setUser } = useUser();
+  const { setUser } = useUser();
 
   const navigate = useNavigate();
 
