@@ -33,7 +33,7 @@ label {
   font-weight: bold;
 }
 
-input[type="text"] {
+input {
   width: calc(100% - 20px);
   padding: 10px;
   margin: 5px 0 10px 0;
@@ -45,7 +45,7 @@ input[type="text"] {
 
 .search-button {
   width: 100%;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -94,7 +94,7 @@ input[type="text"] {
 }
 
 .news-item a {
-  color: #4CAF50;
+  color: #4caf50;
   text-decoration: none;
 }
 

@@ -7,6 +7,8 @@ import {
   Link,
 } from "react-router-dom";
 import App from "./app/App";
+import Authorization from "./authorization/Authorization";
+import { UserProvider } from "./context/userContext";
 import News from "./page/news/News";
 import Profile from "./page/profile/Profile";
 import Registration from "./registration/Registration";
@@ -14,7 +16,11 @@ import Registration from "./registration/Registration";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App></App>,
+    element: (
+      <UserProvider>
+        <App></App>
+      </UserProvider>
+    ),
     children: [
       {
         path: "news",
@@ -25,9 +31,13 @@ const router = createBrowserRouter([
         element: <Profile></Profile>,
       },
       {
-        path:"registration",
-        element: <Registration></Registration>
-      }
+        path: "authorization",
+        element: <Authorization></Authorization>,
+      },
+      {
+        path: "registration",
+        element: <Registration></Registration>,
+      },
     ],
   },
 ]);
