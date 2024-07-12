@@ -12,6 +12,7 @@ import { UserProvider } from "./context/userContext";
 import News from "./page/news/News";
 import Profile from "./page/profile/Profile";
 import Registration from "./registration/Registration";
+import Error from './component/404'
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "registration",
         element: <Registration></Registration>,
+      },
+      {
+        path: "*",
+        element: <Error></Error>,
       },
     ],
   },
