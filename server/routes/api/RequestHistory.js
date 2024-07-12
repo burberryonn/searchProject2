@@ -2,15 +2,14 @@ const requestHistoryRouter = require("express").Router();
 const { RequestHistory } = require("../../db/models");
 const cookieParser = require("cookie-parser");
 
-
 requestHistoryRouter.use(cookieParser());
 
-requestHistoryRouter.get("/", async (req, res) => {
+requestHistoryRouter.get("/onlyUser/:id", async (req, res) => {
+  const { id } = req.params;
+  console.log(id)
   try {
-    const history = await RequestHistory.findAll({
-      orderBy: [["id", "ASC"]],
-    });
-    res.cookie("test", "testSecond").json(history);
+    const history = await RequestHistory.findAll({ where: { userId: id } });
+    res.cookie("est", "testSecond").json(history);
   } catch ({ message }) {
     res.json(`ошибка: ${message}`);
   }
@@ -29,10 +28,10 @@ requestHistoryRouter.post("/", async (req, res) => {
 requestHistoryRouter.put("/:id", async (req, res) => {
   const { id } = req.params;
   console.log(id);
-  const { user_id, goodRequest, badRequest} = req.body;
+  const { user_id, goodRequest, badRequest } = req.body;
   try {
     const result = await RequestHistory.update(
-        { user_id, goodRequest, badRequest},
+      { user_id, goodRequest, badRequest },
       { where: { id: id } }
     );
 

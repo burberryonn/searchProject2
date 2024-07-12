@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../services/axiosInstance";
 
 function Registration() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+
   const {user, setUser} = useUser()
   const [validateForm, setValidateForm] = useState(false)
   const [validatePassword, setValidatePassword] = useState(false)
@@ -23,6 +24,7 @@ function Registration() {
     setUser(data.data.user)
     navigate('/profile')
     console.log(data)
+
   };
 
   return (
@@ -41,14 +43,14 @@ function Registration() {
           }}
         ></input>
         <input
-          type="text"
+          type="email"
           placeholder="электронная почта"
           onChange={(event) => {
             setForm((prev) => ({ ...prev, email: event.target.value }));
           }}
         ></input>
         <input
-          type="text"
+          type="password"
           placeholder="пароль"
           onChange={(event) => {
             setForm((prev) => ({ ...prev, password: event.target.value }));

@@ -4,20 +4,27 @@ import axios from "axios";
 function Profile() {
   const { user } = useUser();
   const [table, useTable] = useState([]);
-  const historyTable = async () => {
-    const field = await axios.get("/api/requestHistory");
-    useTable(field.data);
+
+  const historyTable = async (id) => {
+    if (id){
+      const field = await axios.get(`/api/requestHistory/onlyUser/${id}`);
+      useTable(field.data);
+    }
+  
   };
+
+ 
   const deleteRequest = async (id) => {
     const field = await axios.delete(`/api/requestHistory/${id}`);
-    if(field.data.message==="success"){
+    if (field.data.message === "success") {
       console.log(id, table);
-      useTable((prev)=>prev.filter((el)=> el.id !== id))
+      useTable((prev) => prev.filter((el) => el.id !== id));
     }
   };
+
   useEffect(() => {
-    historyTable();
-  }, []);
+    historyTable(user?.id);
+  }, [user]);
   return (
     <>
       <div>
@@ -31,10 +38,13 @@ function Profile() {
               <div>
                 {el.goodRequest} {el.badRequest}
               </div>
-              <button onClick={()=>{
-                deleteRequest(el.id)
-
-              }}>Delete </button>
+              <button
+                onClick={() => {
+                  deleteRequest(el.id);
+                }}
+              >
+                Delete{" "}
+              </button>
             </div>
           );
         })}
