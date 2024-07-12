@@ -6,6 +6,7 @@ const generateTokens = require("../../utils/generateTokens");
 
 authRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
+  console.log(111, req.body);
 
   if (!email || email.trim() === "" || !password || password.trim() === "") {
     res.status(403).json({ message: "Не все поля заполнены" });
@@ -17,8 +18,10 @@ authRouter.post("/login", async (req, res) => {
         email,
       },
     });
-
+    console.log(222, targetUser.password);
+    console.log(222, password);
     const isValidPassword = await bcrypt.compare(password, targetUser.password);
+;
     if (!isValidPassword) {
       res
         .status(401)

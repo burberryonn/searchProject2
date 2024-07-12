@@ -7,7 +7,7 @@ requestHistoryRouter.use(cookieParser());
 
 requestHistoryRouter.get("/", async (req, res) => {
   try {
-    const history = await User.findAll({
+    const history = await RequestHistory.findAll({
       orderBy: [["id", "ASC"]],
     });
     res.cookie("test", "testSecond").json(history);
@@ -18,7 +18,7 @@ requestHistoryRouter.get("/", async (req, res) => {
 
 requestHistoryRouter.post("/", async (req, res) => {
   try {
-    const newHistory = await User.create(req.body);
+    const newHistory = await RequestHistory.create(req.body);
     res.status(201).json(newHistory);
   } catch (error) {
     console.log(error);
@@ -31,13 +31,13 @@ requestHistoryRouter.put("/:id", async (req, res) => {
   console.log(id);
   const { user_id, goodRequest, badRequest} = req.body;
   try {
-    const result = await User.update(
+    const result = await RequestHistory.update(
         { user_id, goodRequest, badRequest},
       { where: { id: id } }
     );
 
     if (result[0] > 0) {
-      const addHistory = await User.findOne({ where: { id: id } });
+      const addHistory = await RequestHistory.findOne({ where: { id: id } });
       return res.status(200).json({ ok: addHistory });
     }
     res.status(400).json("error");
@@ -48,8 +48,10 @@ requestHistoryRouter.put("/:id", async (req, res) => {
 
 requestHistoryRouter.delete("/:id", async (req, res) => {
   const { id } = req.params;
+  console.log(id);
   try {
-    const delHistory = await User.destroy({ where: { id: +id } });
+    const delHistory = await RequestHistory.destroy({ where: { id: +id } });
+    console.log(delHistory);
     if (delHistory > 0) {
       return res.status(200).json({ message: "success" });
     }
