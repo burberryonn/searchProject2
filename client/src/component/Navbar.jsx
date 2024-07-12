@@ -44,7 +44,7 @@ function Navbar() {
                 <Link to="/profile" className="nav-link">
                   PROFILE
                 </Link>
-                <button onClick={onHandleLogOut}>LOGOUT</button>
+                <Link onClick={onHandleLogOut}className="nav-link">LOGOUT</Link>
               </>
             ) : (
               <>
