@@ -6,15 +6,15 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../services/axiosInstance";
 
 function Registration() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", password: "" });
-  const {user, setUser} = useUser()
+  const { user, setUser } = useUser();
   const createNewUser = async (event) => {
     event.preventDefault();
-    const data= await axiosInstance.post("/auth/registration", form);
-    setUser(data.data.user)
-    navigate('/profile')
-    console.log(data)
+    const data = await axiosInstance.post("/auth/registration", form);
+    setUser(data.data.user);
+    navigate("/profile");
+    console.log(data);
   };
 
   return (
@@ -33,14 +33,14 @@ function Registration() {
           }}
         ></input>
         <input
-          type="text"
+          type="email"
           placeholder="электронная почта"
           onChange={(event) => {
             setForm((prev) => ({ ...prev, email: event.target.value }));
           }}
         ></input>
         <input
-          type="text"
+          type="password"
           placeholder="пароль"
           onChange={(event) => {
             setForm((prev) => ({ ...prev, password: event.target.value }));
